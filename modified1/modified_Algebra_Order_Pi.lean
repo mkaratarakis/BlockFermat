@@ -1,0 +1,12 @@
+def positivity_const : expr → tactic strictness
+--   | q(Function.const $(ι) $(a)) => do
+--     let strict_a ← core a
+--     match strict_a with
+--       | positive p =>
+--         positive <$> to_expr ``(function_const_pos $(ι) $(p)) <|>
+--           nonnegative <$> to_expr ``(function_const_nonneg_of_pos $(ι) $(p))
+--       | nonnegative p => nonnegative <$> to_expr ``(const_nonneg_of_nonneg $(ι) $(p))
+--       | nonzero p => nonzero <$> to_expr ``(function_const_ne_zero $(ι) $(p))
+--   | e =>
+--     pp e >>= fail ∘ format.bracket "The expression `" "` is not of the form `Function.const ι a`"
+-- #align tactic.positivity_const tactic.positivity_const
