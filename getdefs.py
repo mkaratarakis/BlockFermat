@@ -3,16 +3,25 @@ import os
 
 def get_defs(lean_code):
 
-    defs = r"def\s[\s\S]*?#.+"
-    structures = r"structure\s[\s\S]*?#.+"
+    defs = r"\Wdef\s[\s\S]*?\n\n+"
+    structures = r"\Wstructure\s[\s\S]*?\n\n+"
+    classes = r"\Wclass\s[\s\S]*?\n\n+"
+    instances = r"\Winstance\s[\s\S]*?\n\n+"
 
     defs_list = re.findall(defs, lean_code)
+    class_list = re.findall(classes, lean_code)
     structures_list = re.findall(structures, lean_code)
+    instances_list = re.findall(instances, lean_code)
 
     # Merge the lists of definitions and structures
-    merged_code = "\n\n".join(defs_list + structures_list)
+    
+    merged_code = "\n\n".join(defs_list + structures_list + class_list + instances_list
+                              )
+    align_pattern = r"#align.*|set_option linter.uppercaseLean3 false.*"
 
-    return merged_code
+    final_list = re.sub(align_pattern, "", merged_code)
+
+    return final_list
 
 def apply_script_to_imports(imports_set):
     # Iterate over each file path in the set of imports
